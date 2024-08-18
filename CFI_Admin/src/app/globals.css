@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*:focus {
+  box-shadow: none !important;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
+  overflow-y: hidden !important;
+  font-family: "Poppins", sans-serif;
+}
+.react-quill ol,
+.react-quill ul{
+  list-style: decimal !important;
+  padding-left: 1rem;
+  row-gap: 6px; 
+  margin-bottom: 2rem;
+}
+.react-quill ol li,
+.react-quill ul li{
+  margin-bottom: 10px;
+}
+.react-quill ul{
+  list-style: disc !important;
+}
+
+@layer base {
+  .header {
+    @apply text-xl xs:text-2xl sm:text-3xl font-semibold text-gray-900 mb-2.5 sm:mb-4;
+  }
+  .subheader {
+    @apply max-xs:text-sm text-gray-600 mb-4 xs:mb-6;
+  }
+  .button {
+    @apply w-32 text-center py-2.5 rounded-lg font-medium cursor-pointer  bg-btnBg text-white;
+  }
+  .not_found {
+    @apply text-center text-4xl font-semibold text-gray-600 my-20;
+  }
+  .triangle {
+    @apply w-0 h-0 border-t-[20px] border-t-transparent border-r-[20px] border-white border-b-[20px] border-r-transparent rotate-45;
+  }
+}

@@ -1,0 +1,296 @@
+[
+  {
+    "team_name": "Tech Innovators",
+    "team_lead": "Alice Johnson",
+    "team_lead_mobile": "123-456-7890",
+    "team_lead_email": "alice.johnson@example.com",
+    "team_photo": "tech_innovators_logo.png",
+    "project_details": "Developing a new AI-based chatbot.",
+    "no_of_members": 4,
+    "members": [
+      { "name": "Alice Johnson", "dept": "Computer Science", "year": "Senior" },
+      { "name": "Bob Smith", "dept": "Computer Science", "year": "Junior" },
+      {
+        "name": "Charlie Davis",
+        "dept": "Computer Science",
+        "year": "Sophomore"
+      },
+      { "name": "Dana Lee", "dept": "Computer Science", "year": "Freshman" }
+    ]
+  },
+  {
+    "team_name": "Green Guardians",
+    "team_lead": "Eve Martinez",
+    "team_lead_mobile": "234-567-8901",
+    "team_lead_email": "eve.martinez@example.com",
+    "team_photo": "green_guardians_logo.png",
+    "project_details": "Creating a sustainable urban garden model.",
+    "no_of_members": 5,
+    "members": [
+      {
+        "name": "Eve Martinez",
+        "dept": "Environmental Science",
+        "year": "Senior"
+      },
+      {
+        "name": "Frank Brown",
+        "dept": "Environmental Science",
+        "year": "Junior"
+      },
+      {
+        "name": "Grace Wilson",
+        "dept": "Environmental Science",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Hank Kim",
+        "dept": "Environmental Science",
+        "year": "Freshman"
+      },
+      {
+        "name": "Isabel Clark",
+        "dept": "Environmental Science",
+        "year": "Senior"
+      }
+    ]
+  },
+  {
+    "team_name": "Health Heroes",
+    "team_lead": "Jack White",
+    "team_lead_mobile": "345-678-9012",
+    "team_lead_email": "jack.white@example.com",
+    "team_photo": "health_heroes_logo.png",
+    "project_details": "Developing a health monitoring app.",
+    "no_of_members": 6,
+    "members": [
+      {
+        "name": "Jack White",
+        "dept": "Biomedical Engineering",
+        "year": "Senior"
+      },
+      {
+        "name": "Karen Black",
+        "dept": "Biomedical Engineering",
+        "year": "Junior"
+      },
+      {
+        "name": "Liam Green",
+        "dept": "Biomedical Engineering",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Mia Harris",
+        "dept": "Biomedical Engineering",
+        "year": "Freshman"
+      },
+      {
+        "name": "Noah Clark",
+        "dept": "Biomedical Engineering",
+        "year": "Senior"
+      },
+      {
+        "name": "Olivia Lewis",
+        "dept": "Biomedical Engineering",
+        "year": "Junior"
+      }
+    ]
+  },
+  {
+    "team_name": "EduTech Pioneers",
+    "team_lead": "Paul Walker",
+    "team_lead_mobile": "456-789-0123",
+    "team_lead_email": "paul.walker@example.com",
+    "team_photo": "edutech_pioneers_logo.png",
+    "project_details": "Building an online learning platform.",
+    "no_of_members": 5,
+    "members": [
+      {
+        "name": "Paul Walker",
+        "dept": "Education Technology",
+        "year": "Senior"
+      },
+      {
+        "name": "Quinn Taylor",
+        "dept": "Education Technology",
+        "year": "Junior"
+      },
+      {
+        "name": "Riley Parker",
+        "dept": "Education Technology",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Sam Bailey",
+        "dept": "Education Technology",
+        "year": "Freshman"
+      },
+      { "name": "Tina Evans", "dept": "Education Technology", "year": "Senior" }
+    ]
+  },
+  {
+    "team_name": "Smart City Developers",
+    "team_lead": "Uma Roberts",
+    "team_lead_mobile": "567-890-1234",
+    "team_lead_email": "uma.roberts@example.com",
+    "team_photo": "smart_city_developers_logo.png",
+    "project_details": "Creating a smart traffic management system.",
+    "no_of_members": 4,
+    "members": [
+      { "name": "Uma Roberts", "dept": "Civil Engineering", "year": "Senior" },
+      { "name": "Victor James", "dept": "Civil Engineering", "year": "Junior" },
+      {
+        "name": "Wendy Brown",
+        "dept": "Civil Engineering",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Xander Davis",
+        "dept": "Civil Engineering",
+        "year": "Freshman"
+      }
+    ]
+  },
+  {
+    "team_name": "FinTech Innovators",
+    "team_lead": "Yara Thompson",
+    "team_lead_mobile": "678-901-2345",
+    "team_lead_email": "yara.thompson@example.com",
+    "team_photo": "fintech_innovators_logo.png",
+    "project_details": "Developing a blockchain-based payment system.",
+    "no_of_members": 6,
+    "members": [
+      { "name": "Yara Thompson", "dept": "Finance", "year": "Senior" },
+      { "name": "Zane King", "dept": "Finance", "year": "Junior" },
+      { "name": "Amy Collins", "dept": "Finance", "year": "Sophomore" },
+      { "name": "Brian Young", "dept": "Finance", "year": "Freshman" },
+      { "name": "Cara Morgan", "dept": "Finance", "year": "Senior" },
+      { "name": "David Lee", "dept": "Finance", "year": "Junior" }
+    ]
+  },
+  {
+    "team_name": "Cyber Defenders",
+    "team_lead": "Ethan White",
+    "team_lead_mobile": "789-012-3456",
+    "team_lead_email": "ethan.white@example.com",
+    "team_photo": "cyber_defenders_logo.png",
+    "project_details": "Creating a cybersecurity awareness program.",
+    "no_of_members": 5,
+    "members": [
+      {
+        "name": "Ethan White",
+        "dept": "Information Security",
+        "year": "Senior"
+      },
+      {
+        "name": "Fiona Black",
+        "dept": "Information Security",
+        "year": "Junior"
+      },
+      {
+        "name": "George Brown",
+        "dept": "Information Security",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Hannah Green",
+        "dept": "Information Security",
+        "year": "Freshman"
+      },
+      { "name": "Ivy Harris", "dept": "Information Security", "year": "Senior" }
+    ]
+  },
+  {
+    "team_name": "Robotics Rookies",
+    "team_lead": "Jacob Taylor",
+    "team_lead_mobile": "890-123-4567",
+    "team_lead_email": "jacob.taylor@example.com",
+    "team_photo": "robotics_rookies_logo.png",
+    "project_details": "Building a robot for warehouse automation.",
+    "no_of_members": 4,
+    "members": [
+      {
+        "name": "Jacob Taylor",
+        "dept": "Mechanical Engineering",
+        "year": "Senior"
+      },
+      {
+        "name": "Katie Brown",
+        "dept": "Mechanical Engineering",
+        "year": "Junior"
+      },
+      {
+        "name": "Luke White",
+        "dept": "Mechanical Engineering",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Mia Green",
+        "dept": "Mechanical Engineering",
+        "year": "Freshman"
+      }
+    ]
+  },
+  {
+    "team_name": "BioMed Innovators",
+    "team_lead": "Natalie King",
+    "team_lead_mobile": "901-234-5678",
+    "team_lead_email": "natalie.king@example.com",
+    "team_photo": "biomed_innovators_logo.png",
+    "project_details": "Developing a new medical imaging technique.",
+    "no_of_members": 5,
+    "members": [
+      {
+        "name": "Natalie King",
+        "dept": "Biomedical Engineering",
+        "year": "Senior"
+      },
+      {
+        "name": "Oscar Lewis",
+        "dept": "Biomedical Engineering",
+        "year": "Junior"
+      },
+      {
+        "name": "Piper Green",
+        "dept": "Biomedical Engineering",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Quinn Brown",
+        "dept": "Biomedical Engineering",
+        "year": "Freshman"
+      },
+      {
+        "name": "Ryan Davis",
+        "dept": "Biomedical Engineering",
+        "year": "Senior"
+      }
+    ]
+  },
+  {
+    "team_name": "AI Mavericks",
+    "team_lead": "Samantha Brown",
+    "team_lead_mobile": "012-345-6789",
+    "team_lead_email": "samantha.brown@example.com",
+    "team_photo": "ai_mavericks_logo.png",
+    "project_details": "Creating an AI-driven recommendation system.",
+    "no_of_members": 4,
+    "members": [
+      {
+        "name": "Samantha Brown",
+        "dept": "Computer Science",
+        "year": "Senior"
+      },
+      { "name": "Thomas Lee", "dept": "Computer Science", "year": "Junior" },
+      {
+        "name": "Ursula Clark",
+        "dept": "Computer Science",
+        "year": "Sophomore"
+      },
+      {
+        "name": "Victor Harris",
+        "dept": "Computer Science",
+        "year": "Freshman"
+      }
+    ]
+  }
+]
