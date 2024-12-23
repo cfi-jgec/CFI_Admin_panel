@@ -110,6 +110,7 @@ declare interface registerTeamsType extends eventRegistrationType {
     positions: string
     prize: string
     message: string
+    rank: number
 }
 
 declare interface reviewsType {

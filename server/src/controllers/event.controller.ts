@@ -121,7 +121,28 @@ export const getEventRegistration = asyncHandler(async (req: Request, res: Respo
     return res.status(200).json(eventRegistration);
 })
 
+export const getEventRegistrationById = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = req.params
+    const eventRegistration = await EventRegistration.find({ eventId: id })
+    return res.status(200).json(eventRegistration);
+})
+
 export const getEventNames = asyncHandler(async (req: Request, res: Response) => {
     const eventNames = await Event.find().select("shortName _id");
     return res.status(200).json(eventNames);
+})
+
+export const updateRanks = asyncHandler(async (req: Request, res: Response) => {
+    const data = req.body;
+    for (let i = 0; i < data.length; i++) {
+        const { _id, rank, prize, message } = data[i];
+        await EventRegistration.findByIdAndUpdate(_id, { rank, prize, message }, { new: true });
+    }
+    return res.status(201).json({ message: "Ranks are updated successfully!" });
+})
+
+export const getEventResult = asyncHandler(async (req: Request, res: Response) => {
+    const eventId = req.params.id;
+    const eventResult = await EventRegistration.find({ eventId }).sort({ rank: 1 }).select("teamName teamLogo projectName leaderName rank prize message");
+    return res.status(200).json(eventResult);
 })

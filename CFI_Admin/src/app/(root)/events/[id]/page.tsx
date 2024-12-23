@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "@/Components/common/CommonLayout";
 import { Badge, Button, Label, Select, Table } from "flowbite-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useAsyncHandler } from "@/utils/asyncHandler";
 import axios from "axios";
@@ -11,8 +11,10 @@ import { MdCall, MdDelete, MdEmail } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
+import { deleteStorage } from "@/utils/data";
 const EventModal = dynamic(() => import('@/Components/modals/EventModal'), { ssr: false });
 const TeamsDetailsModal = dynamic(() => import('@/Components/modals/TeamsDetailsModal'), { ssr: false })
+const UpdateResult = dynamic(() => import('@/Components/modals/update-result'), { ssr: false })
 
 const ParticularEvent = () => {
     const { id } = useParams();
@@ -24,6 +26,8 @@ const ParticularEvent = () => {
     const [openTeamModal, setOpenTeamModal] = useState(false);
     const [teamData, setTeamData] = useState<registerTeamsType>();
     const [status, setStatus] = useState<string>('');
+    const [openResultModal, setOpenResultModal] = useState(false);
+    const router = useRouter();
 
     const resetData = () => {
         setIsUpdate(false);
@@ -47,16 +51,18 @@ const ParticularEvent = () => {
         setTeams(data);
     })
 
+    const deleteEvent = useAsyncHandler(async (item: EventsItemsType) => {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/event/remove`, item);
+        if (item.photo) await deleteStorage(item.photo);
+        toast.success("Event is deleted successfully");
+        router.replace('/events')
+    });
+
     useEffect(() => {
         getEventDetails();
         getRegisterTeams();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openModal, openTeamModal]);
-
-    const updateEvent = () => {
-        setIsUpdate(true);
-        setOpenModal(true);
-        setPhoto(eventDetails?.photo as string);
-    }
 
     const handelTeamDetails = (id: string) => {
         const teamsDetail = teams.find(ele => ele._id == id);
@@ -70,6 +76,13 @@ const ParticularEvent = () => {
         toast.success("Team is removed from the event");
         getRegisterTeams();
     })
+
+    useEffect(() => {
+        if (eventDetails) {
+            const res = teams.filter((item) => item.eventId === eventDetails._id);
+            setTeams(res);
+        }
+    }, [eventDetails, teams]);
 
     return (
         <Layout header="Event Details">
@@ -155,11 +168,17 @@ const ParticularEvent = () => {
                                     <option value={'open'}>Mark as Incomplete</option>
                                 </Select>
                             </div>
-                            <Button color={'info'} disabled={status===''} onClick={CompletedEvent}>Save</Button>
+                            <Button color={'info'} disabled={status === ''} onClick={CompletedEvent}>Save</Button>
                         </div>
                         <div className="flex justify-between items-center">
-                            <Button color={'success'}>Declare Result</Button>
-                            <Button color={'purple'} onClick={updateEvent}>Edit Event Details</Button>
+                            <Button color={'success'} onClick={() => setOpenResultModal(true)} >Declare Result</Button>
+                            <Button
+                                color={'failure'}
+                                onClick={() => deleteEvent(eventDetails)}
+                            >
+                                <MdDelete className="me-2 text-lg" />
+                                Delete Event
+                            </Button>
                         </div>
                     </div>
                     {teams.length > 0 && <div className="w-full bg-white rounded-lg py-8 mt-4 border shadow-lg">
@@ -178,69 +197,67 @@ const ParticularEvent = () => {
                                     <Table.HeadCell className="text-sm p-2">Actions</Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divnamee-y">
-                                    {teams
-                                        .map((item, i) => {
-                                            const {
-                                                isApproved,
-                                                teamName,
-                                                teamLogo,
-                                                leaderName,
-                                                email,
-                                                phone,
-                                                projectName,
-                                                members
-                                            } = item;
-                                            return (
-                                                <Table.Row key={i} className="bg-white">
-                                                    <Table.Cell className="text-sm py-3 ps-3 pe-2">{i + 1}</Table.Cell>
-                                                    <Table.Cell className=" flex items-center gap-3 capitalize text-gray-800 text-xs  px-2 whitespace-nowrap font-medium">
-                                                        <Image
-                                                            src={teamLogo}
-                                                            width={20}
-                                                            height={20}
-                                                            alt="teamlogo"
-                                                        />
-                                                        <span>{teamName}</span>
-                                                    </Table.Cell>
-                                                    <Table.Cell className="capitalize text-xs whitespace-nowrap font-medium text-title py-3 px-2">
-                                                        {leaderName}
-                                                    </Table.Cell>
-                                                    <Table.Cell className="text-xs py-3 px-2">
-                                                        <div className="flex items-center gap-x-3 mb-1">
-                                                            <MdEmail />
-                                                            {email}
+                                    {teams.map((item, i) => {
+                                        const {
+                                            isApproved,
+                                            teamName,
+                                            teamLogo,
+                                            leaderName,
+                                            email,
+                                            phone,
+                                            members
+                                        } = item;
+                                        return (
+                                            <Table.Row key={i} className="bg-white">
+                                                <Table.Cell className="text-sm py-3 ps-3 pe-2">{i + 1}</Table.Cell>
+                                                <Table.Cell className=" flex items-center gap-3 capitalize text-gray-800 text-xs  px-2 whitespace-nowrap font-medium">
+                                                    <Image
+                                                        src={teamLogo}
+                                                        width={20}
+                                                        height={20}
+                                                        alt="teamlogo"
+                                                    />
+                                                    <span>{teamName}</span>
+                                                </Table.Cell>
+                                                <Table.Cell className="capitalize text-xs whitespace-nowrap font-medium text-title py-3 px-2">
+                                                    {leaderName}
+                                                </Table.Cell>
+                                                <Table.Cell className="text-xs py-3 px-2">
+                                                    <div className="flex items-center gap-x-3 mb-1">
+                                                        <MdEmail />
+                                                        {email}
+                                                    </div>
+                                                    <div className="flex items-center gap-x-3">
+                                                        <MdCall />
+                                                        {phone}
+                                                    </div>
+                                                </Table.Cell>
+                                                <Table.Cell className="text-sm py-3 px-2">
+                                                    {members.length + 1}
+                                                </Table.Cell>
+                                                <Table.Cell className="text-sm py-3 px-2">
+                                                    {isApproved ? <Badge className="rounded-full text-xs inline-block" color={"success"}>Approved</Badge> :
+                                                        <Badge className="rounded-full text-xs inline-block" color={"purple"}>pending</Badge>}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    <div className="flex text-xl items-center">
+                                                        <div
+                                                            className=" cursor-pointer text-green-500 hover:bg-gray-200 p-2 rounded-full "
+                                                            onClick={() => handelTeamDetails(item._id)}
+                                                        >
+                                                            <FaUserEdit />
                                                         </div>
-                                                        <div className="flex items-center gap-x-3">
-                                                            <MdCall />
-                                                            {phone}
+                                                        <div
+                                                            className="cursor-pointer text-red-500 hover:bg-gray-200 p-2 rounded-full "
+                                                            onClick={() => removeTeamFromEvent(item._id)}
+                                                        >
+                                                            <MdDelete />
                                                         </div>
-                                                    </Table.Cell>
-                                                    <Table.Cell className="text-sm py-3 px-2">
-                                                        {members.length + 1}
-                                                    </Table.Cell>
-                                                    <Table.Cell className="text-sm py-3 px-2">
-                                                        {isApproved ? <Badge className="rounded-full text-xs inline-block" color={"success"}>Approved</Badge> :
-                                                            <Badge className="rounded-full text-xs inline-block" color={"purple"}>pending</Badge>}
-                                                    </Table.Cell>
-                                                    <Table.Cell>
-                                                        <div className="flex text-xl items-center">
-                                                            <div
-                                                                className=" cursor-pointer text-green-500 hover:bg-gray-200 p-2 rounded-full "
-                                                                onClick={() => handelTeamDetails(item._id)}
-                                                            >
-                                                                <FaUserEdit />
-                                                            </div>
-                                                            <div
-                                                                className="cursor-pointer text-red-500 hover:bg-gray-200 p-2 rounded-full "
-                                                                onClick={() => removeTeamFromEvent(item._id)}
-                                                            >
-                                                                <MdDelete />
-                                                            </div>
-                                                        </div>
-                                                    </Table.Cell>
-                                                </Table.Row>
-                                            );
-                                        })}
+                                                    </div>
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        );
+                                    })}
                                 </Table.Body>
                             </Table>
                         </div>
@@ -251,94 +268,13 @@ const ParticularEvent = () => {
                     Sorry no data found
                 </h1>
             )}
-            {/* <Modal show={openModal} size={'lg'} popup onClose={() => setOpenModal(false)}>
-                <Modal.Header className='ps-6'>Update Event Results</Modal.Header>
-                <Modal.Body>
-                    <Formik
-                        initialValues={eventResult}
-                        onSubmit={(values) => console.log(values)}
-                    >
-                        {(formik) => (
-                            <Form>
-                                <InputField name="teamName" placeholder="Team Name" label={"Team Name"} />
-                                <SelectionField name="position" label="Choose the Position" data={['1st position', '2nd position', '3rd position']} />
-                                <div className="mb-2">
-                                    <div className="mb-1 block">
-                                        <Label htmlFor="photo" value="Upload Team photo" />
-                                    </div>
-                                    <FileInput />
-                                </div>
-                                <div className="mb-1 block">
-                                    <Label htmlFor="Team Members" value="Team Members Details" />
-                                </div>
-                                <InputField name="mem1" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <InputField name="mem2" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <InputField name="mem3" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <InputField name="mem4" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <InputField name="mem5" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <InputField name="mem6" placeholder="Name, Year, Dept. Ex- Rohit Dey, 3rd Year, IT" />
-                                <div className='flex gap-4 my-3'>
-                                    {
-                                        isUpdate ? <Button color={'info'} type='submit'>Update Event</Button> :
-                                            <><Button color={'success'} type='submit'>Add Event</Button>
-                                                <Button color={'failure'} type='reset'>Reset</Button>
-                                            </>
-                                    }
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                </Modal.Body>
-            </Modal> */}
+            <UpdateResult
+                openModal={openResultModal}
+                setOpenModal={(value: boolean) => setOpenResultModal(value)}
+                teams={teams}
+            />
         </Layout>
     );
 };
 
 export default ParticularEvent;
-
-
-//   <h1 className="my-4 font-semibold text-2xl text-center">Results</h1>
-//                         <div className="flex justify-around">
-//                             <div className="w-[15rem] h-auto p-4 rounded-lg shadow-lg bg-yellow-300 my-2 font-medium text-gray-700">
-//                                 <h1 className="font-semibold text-xl text-center mb-2">
-//                                     Winner
-//                                 </h1>
-//                                 <h2>Team - Geronimo</h2>
-//                                 <h2>Team Members-</h2>
-//                                 <div className="ms-6">
-//                                     <p>1. Swadesh pal</p>
-//                                     <p>2. Swadesh pal</p>
-//                                     <p>3. Swadesh pal</p>
-//                                     <p>4. Swadesh pal</p>
-//                                     <p>5. Swadesh pal</p>
-//                                 </div>
-//                             </div>
-//                             <div className="w-[15rem] h-auto p-4 rounded-lg shadow-lg bg-[#cd7f32] my-2 font-medium text-gray-700">
-//                                 <h1 className="font-semibold text-xl text-center mb-2">
-//                                     Second Position
-//                                 </h1>
-//                                 <h2>Team - Geronimo</h2>
-//                                 <h2>Team Members-</h2>
-//                                 <div className="ms-6">
-//                                     <p>1. Swadesh pal</p>
-//                                     <p>2. Swadesh pal</p>
-//                                     <p>3. Swadesh pal</p>
-//                                     <p>4. Swadesh pal</p>
-//                                     <p>5. Swadesh pal</p>
-//                                 </div>
-//                             </div>
-//                             <div className="w-[15rem] h-auto p-4 rounded-lg shadow-lg bg-zinc-300 my-2 font-medium text-gray-700">
-//                                 <h1 className="font-semibold text-xl text-center mb-2">
-//                                     Third Position
-//                                 </h1>
-//                                 <h2>Team - Geronimo</h2>
-//                                 <h2>Team Members-</h2>
-//                                 <div className="ms-6">
-//                                     <p>1. Swadesh pal</p>
-//                                     <p>2. Swadesh pal</p>
-//                                     <p>3. Swadesh pal</p>
-//                                     <p>4. Swadesh pal</p>
-//                                     <p>5. Swadesh pal</p>
-//                                 </div>
-//                             </div>
-//                         </div>

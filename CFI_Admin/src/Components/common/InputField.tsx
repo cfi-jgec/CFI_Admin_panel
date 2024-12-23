@@ -10,14 +10,15 @@ interface inputTypes {
     placeholder?: string,
     type?: string,
     disabled?: boolean
+    containerClass?: string
 }
 
 
-const InputField: React.FC<inputTypes> = ({ isInput = true, label, ...props }) => {
+const InputField: React.FC<inputTypes> = ({ containerClass, isInput = true, label, ...props }) => {
     const [field, meta] = useField(props);
     return (
         <>
-            <div className='my-2 z-10'>
+            <div className={`my-2 z-10 ${containerClass}`}>
                 <div className="mb-1 block">
                     <Label htmlFor={field.name} value={label} />
                 </div>
@@ -26,7 +27,7 @@ const InputField: React.FC<inputTypes> = ({ isInput = true, label, ...props }) =
                         <TextInput className="!z-10" type="text" {...field} {...props} color={`${meta.touched && meta.error && "failure"}`} /> :
                         <Textarea className="!z-10" rows={4} {...field} {...props} color={`${meta.touched && meta.error && "failure"}`} />
                 }
-                <ErrorMessage component={'div'} name={field.name} className="text-red-600" />
+                <ErrorMessage component={'div'} name={field.name} className="text-red-600 text-xs" />
             </div>
         </>
     )

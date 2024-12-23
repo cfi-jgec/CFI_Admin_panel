@@ -36,7 +36,7 @@ const EventModal: FC<props> = ({
 
     return (
         <>
-            <Modal show={openModal} size={"2xl"} popup onClose={closedModal}>
+            <Modal show={openModal} size={"3xl"} popup onClose={closedModal}>
                 <Modal.Header className="ps-6">Add New Event</Modal.Header>
                 <Modal.Body>
                     <Formik

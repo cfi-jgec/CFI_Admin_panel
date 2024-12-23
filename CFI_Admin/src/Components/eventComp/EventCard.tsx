@@ -39,19 +39,19 @@ const EventCard: React.FC<PropsType> = ({
                         {shortName}
                     </h1>
                 </Link>
-                <div className="flex items-center justify-between"> 
-                    {/* <div
+                <div className="flex items-center justify-between">
+                    <div
                         className=" cursor-pointer text-green-500 hover:bg-gray-200 p-2 rounded-full "
                         onClick={() => updateEvent(props)}
                     >
                         <FaEdit size={18} />
-                    </div> */}
-                    <div
+                    </div>
+                    {/* <div
                         className="cursor-pointer text-red-500 hover:bg-gray-200 p-2 rounded-full "
                         onClick={() => deleteEvent(props)}
                     >
                         <MdDelete size={18} />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

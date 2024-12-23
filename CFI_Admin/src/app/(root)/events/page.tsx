@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 import Layout from "@/Components/common/CommonLayout";
 import { TextInput } from "flowbite-react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import axios from "axios";
-import { deleteStorage } from "@/utils/data"; 
+import axios from "axios"; 
 import { useAsyncHandler } from "@/utils/asyncHandler";
 import dynamic from "next/dynamic";
-const EventCard = dynamic(() => import("@/Components/eventComp/EventCard"), { ssr: false });
+import EventCard from "@/Components/eventComp/EventCard";
 const EventModal = dynamic(() => import('@/Components/modals/EventModal'), { ssr: false })
 
 const Events = () => {
@@ -73,15 +72,9 @@ const Events = () => {
         setEventList(data.events);
     });
 
-    // delete alumni details
-    const deleteEvent = useAsyncHandler(async (item: EventsItemsType) => {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/event/remove`, item);
-        if (item.photo) await deleteStorage(item.photo);
-        getAllEvents();
-    });
-
     useEffect(() => {
         getAllEvents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openModal, isUpdate]);
 
     return (
@@ -125,7 +118,7 @@ const Events = () => {
                                     key={i}
                                     props={item}
                                     updateEvent={(e: EventsItemsType) => openUpdate(e)}
-                                    deleteEvent={(e: EventsItemsType) => deleteEvent(e)}
+                                    deleteEvent={(e: EventsItemsType) => { }}
                                 />
                             );
                         })}
